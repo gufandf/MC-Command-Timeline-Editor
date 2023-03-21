@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+[application]
+
+config/name="Command Timeline Editor"
+config/description="一个可以方便地创建指令时间线的工具"
+run/main_scene="res://Main.tscn"
+boot_splash/show_image=false
+boot_splash/image="res://CTE.png"
+config/icon="res://CTE.png"
+
+[display]
+
+window/dpi/allow_hidpi=true
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
