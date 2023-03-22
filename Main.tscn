@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://SourceHanSansCN-Medium.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://godot.png" type="Texture" id=2]
+[ext_resource path="res://addAnim.gd" type="Script" id=3]
 [ext_resource path="res://CTE.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
@@ -188,15 +189,17 @@ access = 2
 filters = PoolStringArray( "pack.mcmeta" )
 
 [node name="addAnim" type="WindowDialog" parent="."]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -156.0
-margin_top = -60.0
-margin_right = 156.0
-margin_bottom = 60.0
+margin_left = -228.0
+margin_top = -78.0
+margin_right = 228.0
+margin_bottom = 78.0
 window_title = "新建动画"
+script = ExtResource( 3 )
 
 [node name="Name" type="LineEdit" parent="addAnim"]
 visible = false
@@ -213,7 +216,7 @@ anchor_right = 1.0
 margin_left = 16.0
 margin_top = 16.0
 margin_right = -16.0
-margin_bottom = 50.0
+margin_bottom = 52.0
 placeholder_text = "动画命名空间"
 
 [node name="Label" type="Label" parent="addAnim"]
@@ -242,10 +245,89 @@ suffix = "tick"
 [node name="confirm" type="Button" parent="addAnim"]
 anchor_right = 1.0
 margin_left = 16.0
-margin_top = 68.0
+margin_top = 112.0
 margin_right = -16.0
-margin_bottom = 98.0
+margin_bottom = 142.0
+disabled = true
 text = "创建"
+
+[node name="posSelect" type="OptionButton" parent="addAnim"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 116.0
+margin_bottom = 100.0
+text = "动画原点"
+items = [ "动画原点", null, false, 0, null, "相对坐标", null, false, 1, null, "绝对坐标", null, false, 2, null ]
+
+[node name="LabelX" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -328.0
+margin_top = 64.0
+margin_right = -312.0
+margin_bottom = 100.0
+text = "X:"
+valign = 1
+
+[node name="LabelY" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -220.0
+margin_top = 64.0
+margin_right = -192.0
+margin_bottom = 100.0
+text = "Y:"
+valign = 1
+
+[node name="LabelZ" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 64.0
+margin_right = -92.0
+margin_bottom = 100.0
+text = "Z:"
+valign = 1
+
+[node name="X" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -308.0
+margin_top = 64.0
+margin_right = -232.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="Y" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_top = 64.0
+margin_right = -124.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+align = 2
+editable = false
+
+[node name="Z" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -92.0
+margin_top = 64.0
+margin_right = -16.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+align = 2
+editable = false
 
 [node name="addFrame" type="WindowDialog" parent="."]
 anchor_left = 0.5
@@ -424,7 +506,10 @@ texture = ExtResource( 2 )
 [connection signal="text_changed" from="workspace/HSplitContainer/TextEdit" to="." method="_on_TextEdit_text_changed"]
 [connection signal="timeout" from="autoSaveTimer" to="." method="_on_autoSave_timeout"]
 [connection signal="file_selected" from="openDatapack" to="." method="_on_openDatapack_file_selected"]
-[connection signal="pressed" from="addAnim/confirm" to="." method="_on_addAnim_confirm_pressed"]
+[connection signal="addAnim" from="addAnim" to="." method="_on_addAnim_addAnim"]
+[connection signal="text_changed" from="addAnim/NameSpace" to="addAnim" method="_on_NameSpace_text_changed"]
+[connection signal="pressed" from="addAnim/confirm" to="addAnim" method="_on_confirm_pressed"]
+[connection signal="item_selected" from="addAnim/posSelect" to="addAnim" method="_on_posSelect_item_selected"]
 [connection signal="pressed" from="addFrame/confirm" to="." method="_on_addFrame_confirm_pressed"]
 [connection signal="toggled" from="settings/is_autoSave" to="." method="_on_autoSave_toggled"]
 [connection signal="value_changed" from="settings/autoSaveTime" to="." method="_on_autoSaveTime_value_changed"]

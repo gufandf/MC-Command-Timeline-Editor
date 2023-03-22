@@ -191,36 +191,31 @@ func _on_TextEdit_text_changed():
 	var command = textEdit.text
 	allAnimData[selecedAnim][selecedFrame] = command
 
+# 自动保存
+func _on_autoSave_toggled(button_pressed):
+	autoSave = button_pressed
+func _on_autoSave_timeout():
+	if root != "" and autoSave:
+		saveData()
+		print("自动保存...")
+func _on_autoSaveTime_value_changed(value):
+	$autoSaveTimer.wait_time = value
+
+## 信号处理
+# 添加动画
+func _on_addAnim_pressed():
+	addAnim.popup()
+func _on_addAnim_addAnim(animName,posX,posY,posZ):
+	addAnim(animName,{"x":posX,"y":posY,"z":posZ},{})
+	loadAnimList()
 # 删除动画
 func _on_deleAnim_pressed():
 	if selecedAnim != "":
 		$ConfirmationDeleAnim.popup()
 		$ConfirmationDeleAnim.dialog_text = "确定删除动画 %s 吗？" % selecedAnim
 func _on_ConfirmationDeleAnim_confirmed():
-	allAnimData.erase(selecedAnim)
+	deleAnim(selecedAnim)
 	loadAnimList()
-# 添加动画
-func _on_addAnim_pressed():
-	addAnim.popup()
-func _on_addAnim_confirm_pressed():
-	var animName = addAnimNameSpace.text
-	if animName != "":
-		allAnimData[animName] = {}
-		loadAnimList()
-		addAnim.hide()
-		addAnimNameSpace.text = ""
-# 删除帧
-func _on_deleFrame_pressed():
-	if selecedFrame != "":
-		$ConfirmationDeleFrame.popup()
-		$ConfirmationDeleFrame.dialog_text = "确定删除帧 %s 吗？" % selecedFrame
-func _on_ConfirmationDeleFrame_confirmed():
-	if selecedAnim != "" and selecedFrame != "":
-		allAnimData[selecedAnim].erase(selecedFrame)
-		selecedFrame = ""
-		textEdit.text = ""
-		textEdit.readonly = true
-	loadFrameList()
 # 添加帧
 func _on_addFrame_pressed():
 	addFrame.popup()
@@ -229,18 +224,30 @@ func _on_addFrame_confirm_pressed():
 	allAnimData[selecedAnim]["frame"+str(frameTime)] = ""
 	addFrame.hide()
 	loadFrameList()
+# 删除帧
+func _on_deleFrame_pressed():
+	if selecedFrame != "":
+		$ConfirmationDeleFrame.popup()
+		$ConfirmationDeleFrame.dialog_text = "确定删除帧 %s 吗？" % selecedFrame
+func _on_ConfirmationDeleFrame_confirmed():
+	if selecedAnim != "" and selecedFrame != "":
+		deleFrame(selecedAnim,selecedFrame)
+		selecedFrame = ""
+		textEdit.text = ""
+		textEdit.readonly = true
+	loadFrameList()
 
-
-func _on_autoSave_toggled(button_pressed):
-	autoSave = button_pressed
-
-func _on_autoSave_timeout():
-	if root != "" and autoSave:
-		saveData()
-		print("自动保存...")
-
-func _on_autoSaveTime_value_changed(value):
-	$autoSaveTimer.wait_time = value
-
-
-
+## 函数
+# 添加动画
+func addAnim(animName:String,pos:Dictionary,data:Dictionary):
+	allAnimData[animName] = {"x":pos["x"],"y":pos["y"],"z":pos["z"]}.merge(data)
+	print(allAnimData)
+# 删除动画
+func deleAnim(animName):
+	allAnimData.erase(animName)
+# 添加帧
+func addFrame(animName,frameName):
+	allAnimData[animName]["frame"+str(frameName)] = ""
+# 删除帧
+func deleFrame(animName,frameName):
+	allAnimData[animName].erase(frameName)
