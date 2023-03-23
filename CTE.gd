@@ -38,13 +38,18 @@ var test_allAnimData = {
 	}
 }
 
+var tickRegex = RegEx.new()
+var posRegex = RegEx.new()
+
 #settings
 var autoSave = false
 
 func _ready():
+	tickRegex.compile("animFrames=[0-9]{1,}")
+	posRegex.compile("animFrames=.*？")
+	
 	MenuButtonFile.get_popup().connect("id_pressed",self,"_file_id_pressed")
 	$AcceptDialog.popup()
-	allAnimData = test_allAnimData
 	loadAnimList()
 
 # 菜单栏
@@ -126,19 +131,26 @@ func loadData(path:String):
 	writeFile(root+"/data/minecraft/tags/functions/tick.json",minetick)
 	createDir(playRoot)
 	createDir(framesRoot)
+
 	for animPath in scan(playRoot):
 		var animName = animPath.get_basename().get_file()
 		allAnimData[animName] = {}
+		allAnimData[animName]["frames"] = {}
 		print("\n"+framesRoot+"/"+animName+"/_play_frames.mcfunction")
 		print("发现动画:",animName)
+		print("动画原点: ?")
 		var file = readFile(framesRoot+"/"+animName+"/_play_frames.mcfunction")
 		for codeLine in file.split("\n",false):
 			var frameName = codeLine.split("/",false)[-1]
+			var tick = tickRegex.search(codeLine).get_string().split("=")[1]
 			if not "kill" in frameName:
-				print("\t包含帧:",frameName)
 				var frameData = readFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction")
-				allAnimData[animName][frameName] = frameData
-	print(allAnimData)
+				allAnimData[animName]["frames"][frameName] = {}
+				allAnimData[animName]["frames"][frameName]["tick"] = int(tick)
+				allAnimData[animName]["frames"][frameName]["command"] = frameData
+				print("\t包含帧:",frameName)
+				print("\ttick:",tick)
+				print("\t\t",frameData)
 	loadAnimList()
 
 
@@ -186,10 +198,11 @@ func loadAnimList():
 func loadFrameList():
 	frameList.clear()
 	if selecedAnim != "":
-		for FrameName in allAnimData[selecedAnim]:
+		for FrameName in allAnimData[selecedAnim]["frames"]:
 			frameList.add_item(FrameName)
 func loadFrame():
-	var command = allAnimData["frames"][selecedAnim][selecedFrame]["command"]
+	print(selecedFrame)
+	var command = allAnimData[selecedAnim]["frames"][selecedFrame]["command"]
 	textEdit.text = command
 
 # 选择动画与帧

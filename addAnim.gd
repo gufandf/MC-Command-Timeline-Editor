@@ -49,9 +49,9 @@ func changeButton():
 
 func _on_confirm_pressed():
 	var animName = $NameSpace.text
-	var posX = str($X.value)
-	var posY = str($Y.value)
-	var posZ = str($Z.value)
+	var posX = $X.prefix+str($X.value)
+	var posY = $Y.prefix+str($Y.value)
+	var posZ = $Z.prefix+str($Z.value)
 	var pos = {
 		"x":posX,
 		"y":posY,
