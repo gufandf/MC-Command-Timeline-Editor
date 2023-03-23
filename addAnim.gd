@@ -4,7 +4,7 @@ extends WindowDialog
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-signal addAnim
+signal addAnim(animName,posX,posY,posZ,data)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,7 +52,12 @@ func _on_confirm_pressed():
 	var posX = str($X.value)
 	var posY = str($Y.value)
 	var posZ = str($Z.value)
-	emit_signal("addAnim",animName,$X.prefix+posX,$Y.prefix+posY,$Z.prefix+posZ,{})
+	var pos = {
+		"x":posX,
+		"y":posY,
+		"z":posZ
+	}
+	emit_signal("addAnim", animName, pos, {})
 	
 	self.hide()
 	$NameSpace.text = ""

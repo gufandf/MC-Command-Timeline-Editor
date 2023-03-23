@@ -22,14 +22,30 @@ var selecedFrame = ""
 
 var allAnimData = {}
 
+var test_allAnimData = {
+	"test_animName":{
+		"pos":{
+			"x":"~",
+			"y":"~",
+			"z":"~"
+		},
+		"frames":{
+			"test_frameName1":{
+				"tick":1,
+				"command":""
+			}
+		}
+	}
+}
+
 #settings
 var autoSave = false
 
 func _ready():
 	MenuButtonFile.get_popup().connect("id_pressed",self,"_file_id_pressed")
 	$AcceptDialog.popup()
-	#loadData("G:/Godot/testmcdatapack2/pack.mcmeta")
-	#loadAnimList()
+	allAnimData = test_allAnimData
+	loadAnimList()
 
 # 菜单栏
 # file
@@ -125,8 +141,10 @@ func loadData(path:String):
 	print(allAnimData)
 	loadAnimList()
 
+
+
 func saveData():
-	var lastFrameName
+	var lastFrameTime
 	var playRoot = FuncRoot+"/_play"
 	var framesRoot = FuncRoot+"/frames"
 	createDir(playRoot)
@@ -143,19 +161,23 @@ func saveData():
 		writeFile(playRoot+"/"+animName+".mcfunction",'summon marker ~ ~ ~ {Tags:["gf_animation_player","%s","playing"]}' % animName)
 		# /frames/animName/_play_frames
 		var _play_frames = ""
+		lastFrameTime = 0
 		for frameName in allAnimData[animName]:
-			lastFrameName = frameName
+			if lastFrameTime < allAnimData[animName][frameName]["tick"]:
+				lastFrameTime = allAnimData[animName][frameName]["tick"]
 			createDir(framesRoot+"/"+animName)
-			_play_frames += 'execute if entity @s[scores={animFrames=%s}] run function cte:frames/%s/%s\n' % [frameName.trim_prefix("frame"),animName,frameName]
+			_play_frames += 'execute if entity @s[scores={animFrames=%s}] run function cte:frames/%s/%s\n' % [allAnimData[animName][frameName]["tick"],animName,frameName]
 			writeFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction",allAnimData[animName][frameName])
-		_play_frames += 'execute if entity @s[scores={animFrames=%s}] run kill @s' % lastFrameName.trim_prefix("frame")
+		_play_frames += 'execute if entity @s[scores={animFrames=%s}] run kill @s' % lastFrameTime
 		writeFile(framesRoot+"/"+animName+"/_play_frames.mcfunction",_play_frames)
 	writeFile(FuncRoot+"/"+"tick.mcfunction",tickmc)
 
+# 刷新UI
 func loadAnimList():
-	animList.clear()
 	selecedAnim = ""
 	selecedFrame = ""
+	
+	animList.clear()
 	addFrameButton.disabled = true
 	deleFrameButton.disabled = true
 	for animName in allAnimData:
@@ -167,7 +189,7 @@ func loadFrameList():
 		for FrameName in allAnimData[selecedAnim]:
 			frameList.add_item(FrameName)
 func loadFrame():
-	var command = allAnimData[selecedAnim][selecedFrame]
+	var command = allAnimData["frames"][selecedAnim][selecedFrame]["command"]
 	textEdit.text = command
 
 # 选择动画与帧
@@ -205,9 +227,8 @@ func _on_autoSaveTime_value_changed(value):
 # 添加动画
 func _on_addAnim_pressed():
 	addAnim.popup()
-func _on_addAnim_addAnim(animName,posX,posY,posZ):
-	addAnim(animName,{"x":posX,"y":posY,"z":posZ},{})
-	loadAnimList()
+func _on_addAnim_addAnim(animName,pos,data):
+	addAnim(animName,pos,{})
 # 删除动画
 func _on_deleAnim_pressed():
 	if selecedAnim != "":
@@ -215,7 +236,6 @@ func _on_deleAnim_pressed():
 		$ConfirmationDeleAnim.dialog_text = "确定删除动画 %s 吗？" % selecedAnim
 func _on_ConfirmationDeleAnim_confirmed():
 	deleAnim(selecedAnim)
-	loadAnimList()
 # 添加帧
 func _on_addFrame_pressed():
 	addFrame.popup()
@@ -223,7 +243,6 @@ func _on_addFrame_confirm_pressed():
 	var frameTime = addFrameTime.value
 	allAnimData[selecedAnim]["frame"+str(frameTime)] = ""
 	addFrame.hide()
-	loadFrameList()
 # 删除帧
 func _on_deleFrame_pressed():
 	if selecedFrame != "":
@@ -235,19 +254,26 @@ func _on_ConfirmationDeleFrame_confirmed():
 		selecedFrame = ""
 		textEdit.text = ""
 		textEdit.readonly = true
-	loadFrameList()
 
 ## 函数
+
 # 添加动画
-func addAnim(animName:String,pos:Dictionary,data:Dictionary):
-	allAnimData[animName] = {"x":pos["x"],"y":pos["y"],"z":pos["z"]}.merge(data)
-	print(allAnimData)
+func addAnim(animName:String,pos:Directory,frames:Dictionary):
+	allAnimData[animName]["pos"] = pos
+	allAnimData[animName]["frames"] = frames
+	print("添加动画:"+animName+str(pos)+str(frames))
 # 删除动画
 func deleAnim(animName):
 	allAnimData.erase(animName)
+	print("删除动画"+animName)
 # 添加帧
-func addFrame(animName,frameName):
-	allAnimData[animName]["frame"+str(frameName)] = ""
+func addFrame(animName,frameName,command):
+	allAnimData[animName]["frame"+str(frameName)] = command
+	print("添加帧:"+frameName+"\n"+command)
 # 删除帧
 func deleFrame(animName,frameName):
 	allAnimData[animName].erase(frameName)
+	print("删除帧"+animName)
+
+
+
