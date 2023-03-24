@@ -47,6 +47,16 @@ text = "文件"
 items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保存数据包", null, 0, false, false, 1, 0, null, "", false ]
 switch_on_hover = true
 
+[node name="MenuButtonDebug" type="MenuButton" parent="topbar"]
+anchor_bottom = 1.0
+margin_left = 960.0
+margin_right = 1024.0
+focus_mode = 2
+custom_styles/focus = SubResource( 6 )
+text = "Dubug"
+items = [ "allAnimData", null, 0, false, false, 0, 0, null, "", false, "selected", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+
 [node name="settings" type="ToolButton" parent="topbar"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -469,6 +479,7 @@ texture = ExtResource( 2 )
 [connection signal="text_changed" from="addAnim/NameSpace" to="addAnim" method="_on_NameSpace_text_changed"]
 [connection signal="item_selected" from="addAnim/posSelect" to="addAnim" method="_on_posSelect_item_selected"]
 [connection signal="pressed" from="addAnim/confirm" to="addAnim" method="_on_confirm_pressed"]
+[connection signal="addFrame" from="addFrame" to="." method="_on_addFrame_addFrame"]
 [connection signal="text_changed" from="addFrame/NameSpace" to="addFrame" method="_on_NameSpace_text_changed"]
 [connection signal="pressed" from="addFrame/confirm" to="." method="_on_addFrame_confirm_pressed"]
 [connection signal="pressed" from="addFrame/confirm" to="addFrame" method="_on_confirm_pressed"]
