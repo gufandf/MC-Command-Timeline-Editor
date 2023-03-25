@@ -6,7 +6,7 @@ onready var openDatapack = $openDatapack
 
 onready var animList = $workspace/HSplitContainer/list/animList/ItemList
 onready var frameList = $workspace/HSplitContainer/list/frameList/ItemList
-onready var textEdit = $workspace/HSplitContainer/TextEdit
+onready var textEdit = $workspace/HSplitContainer/edit/TextEdit
 
 onready var addAnim = $addAnim
 onready var addAnimNameSpace = $addAnim/NameSpace
@@ -16,6 +16,7 @@ onready var addFrameButton = $workspace/HSplitContainer/list/frameList/addFrame
 onready var deleFrameButton = $workspace/HSplitContainer/list/frameList/deleFrame
 onready var addAnimButton = $workspace/HSplitContainer/list/animList/addAnim
 onready var deleAnimButton = $workspace/HSplitContainer/list/animList/deleAnim
+onready var editFrameTick = $workspace/HSplitContainer/list/frameList/frameTick
 
 var root = ""
 var FuncRoot = ""
@@ -80,6 +81,7 @@ func _debug_pressed(id):
 
 # 读取数据包
 func _on_openDatapack_file_selected(path):
+	$topbar/MenuButtonFile.get_popup().set_item_disabled(1,false)
 	loadData(path)
 
 # 读取文件
@@ -126,6 +128,10 @@ func scan(path:String) -> Array:
 
 # 打开数据包
 func loadData(path:String):
+	saveData()
+	allAnimData.clear()
+	addAnimButton.disabled = false
+	
 	root = path.get_base_dir()
 	FuncRoot = root+"/data/cte/functions"
 	var playRoot = FuncRoot+"/_play"
@@ -142,7 +148,8 @@ func loadData(path:String):
 	writeFile(root+"/data/minecraft/tags/functions/tick.json",minetick)
 	createDir(playRoot)
 	createDir(framesRoot)
-
+	
+	loadAnimList()
 	for animPath in scan(playRoot):
 		var animName = animPath.get_basename().get_file()
 		var animPathFile = readFile(animPath)
@@ -178,6 +185,7 @@ func saveData():
 	# tick 和 /play/animName 和 /frames/animName
 	var tickmc = 'scoreboard players add @e[nbt={Tags:["gf_animation_player","playing"]}] animFrames 1\n'
 	for animName in allAnimData:
+		createDir(framesRoot+"/"+animName)
 		# tick
 		tickmc += 'execute as @e[nbt={Tags:["gf_animation_player","%s","playing"]}] at @s run function cte:frames/%s/_play_frames\n' % [animName,animName]
 		# /play/animName
@@ -188,7 +196,6 @@ func saveData():
 		for frameName in allAnimData[animName]["frames"]:
 			if lastFrameTime < allAnimData[animName]["frames"][frameName]["tick"]:
 				lastFrameTime = allAnimData[animName]["frames"][frameName]["tick"]
-			createDir(framesRoot+"/"+animName)
 			_play_frames += 'execute if entity @s[scores={animFrames=%s}] run function cte:frames/%s/%s\n' % [allAnimData[animName]["frames"][frameName]["tick"],animName,frameName]
 			writeFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction",allAnimData[animName]["frames"][frameName]["command"])
 		_play_frames += 'execute if entity @s[scores={animFrames=%s}] run kill @s' % lastFrameTime
@@ -205,9 +212,11 @@ func loadButton():
 		addFrameButton.disabled = false
 	if selecedFrame == "":
 		textEdit.readonly = true
+		editFrameTick.hide()
 		deleFrameButton.disabled = true
 	else:
 		textEdit.readonly = false
+		editFrameTick.show()
 		deleFrameButton.disabled = false
 
 func loadAnimList():
@@ -230,9 +239,10 @@ func loadFrameList():
 
 func loadFrame():
 	loadButton()
+	var tick = allAnimData[selecedAnim]["frames"][selecedFrame]["tick"]
 	var command = allAnimData[selecedAnim]["frames"][selecedFrame]["command"]
+	editFrameTick.value = tick
 	textEdit.text = command
-
 
 # 选择动画与帧
 func _on_animList_selected(index):
@@ -264,8 +274,22 @@ func _on_autoSaveTime_value_changed(value):
 # 添加动画
 func _on_addAnim_pressed():
 	addAnim.popup()
-func _on_addAnim_addAnim(animName,pos,data):
+func _on_addAnim_addAnim(animName,pos):
 	addAnim(animName,pos,{})
+# 修改动画
+func _on_AnimItemList_item_rmb_selected(index,at_position):
+	selecedAnim = animList.get_item_text(index)
+	loadFrameList()
+	print("编辑动画:"+selecedAnim)
+	$editAnim/NameSpace.text = selecedAnim
+	$editAnim.popup()
+func _on_editAnim_editAnim(animName, pos):
+	var oldAnimName = selecedAnim
+	var newAnimName = animName
+	var frames = allAnimData[oldAnimName]["frames"]
+	deleAnim(oldAnimName)
+	addAnim(newAnimName,pos,frames)
+	
 # 删除动画
 func _on_deleAnim_pressed():
 	$ConfirmationDeleAnim.popup()
@@ -277,6 +301,10 @@ func _on_addFrame_pressed():
 	addFrame.popup()
 func _on_addFrame_addFrame(frameName, tick, command):
 	addFrame(selecedAnim,frameName,tick,command)
+# 修改帧tick
+func _on_frameTick_value_changed(value):
+	allAnimData[selecedAnim]["frames"][selecedFrame]["tick"] = value
+	print("修改tick:",value)
 # 删除帧
 func _on_deleFrame_pressed():
 	$ConfirmationDeleFrame.popup()
@@ -314,5 +342,17 @@ func deleFrame(animName,frameName):
 	textEdit.text = ""
 	loadFrameList()
 	print("删除帧"+animName)
+
+
+
+
+
+
+
+
+
+
+
+
 
 

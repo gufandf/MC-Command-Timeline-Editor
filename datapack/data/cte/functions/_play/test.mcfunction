@@ -1,1 +1,0 @@
-summon marker ~ ~ ~ {Tags:["gf_animation_player","test","playing"]}

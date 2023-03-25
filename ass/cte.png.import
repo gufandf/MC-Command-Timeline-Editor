@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CTE.png-3e3bb19f4c8fa5f9f828f9d19254d66c.stex"
+path="res://.import/cte.png-0f5b1ded55729d6d5a71ec190190cd6d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CTE.png"
-dest_files=[ "res://.import/CTE.png-3e3bb19f4c8fa5f9f828f9d19254d66c.stex" ]
+source_file="res://ass/cte.png"
+dest_files=[ "res://.import/cte.png-0f5b1ded55729d6d5a71ec190190cd6d.stex" ]
 
 [params]
 

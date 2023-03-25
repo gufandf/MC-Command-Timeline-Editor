@@ -10,12 +10,10 @@ config_version=4
 
 [application]
 
-config/name="Command Timeline Editor"
+config/name="指令时间线编辑器 Command Timeline Editor"
 config/description="一个可以方便地创建指令时间线的工具"
 run/main_scene="res://Main.tscn"
 boot_splash/show_image=false
-boot_splash/image="res://CTE.png"
-config/icon="res://CTE.png"
 
 [display]
 

@@ -1,1 +1,0 @@
-say nihao @a
