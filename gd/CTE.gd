@@ -270,6 +270,36 @@ func _on_autoSave_timeout():
 func _on_autoSaveTime_value_changed(value):
 	$autoSaveTimer.wait_time = value
 
+## 函数
+# 添加动画
+func addAnim(animName:String,pos:Dictionary,frames:Dictionary):
+	allAnimData[animName] = {}
+	allAnimData[animName]["pos"] = pos
+	allAnimData[animName]["frames"] = frames
+	loadAnimList()
+	print("添加动画:",animName,str(pos),str(frames))
+# 删除动画
+func deleAnim(animName):
+	selecedFrame = ""
+	selecedAnim = ""
+	allAnimData.erase(animName)
+	loadAnimList()
+	print("删除动画"+animName)
+# 添加帧
+func addFrame(animName,frameName,tick,command):
+	allAnimData[animName]["frames"][frameName] = {}
+	allAnimData[animName]["frames"][frameName]["tick"] = tick
+	allAnimData[animName]["frames"][frameName]["command"] = command
+	loadFrameList()
+	print("添加帧:"+frameName+"\n"+command)
+# 删除帧
+func deleFrame(animName,frameName):
+	allAnimData[animName]["frames"].erase(frameName)
+	selecedFrame = ""
+	textEdit.text = ""
+	loadFrameList()
+	print("删除帧"+animName)
+
 ## 信号处理
 # 添加动画
 func _on_addAnim_pressed():
@@ -311,48 +341,5 @@ func _on_deleFrame_pressed():
 	$ConfirmationDeleFrame.dialog_text = "确定删除帧 %s 吗？" % selecedFrame
 func _on_ConfirmationDeleFrame_confirmed():
 	deleFrame(selecedAnim,selecedFrame)
-
-## 函数
-
-# 添加动画
-func addAnim(animName:String,pos:Dictionary,frames:Dictionary):
-	allAnimData[animName] = {}
-	allAnimData[animName]["pos"] = pos
-	allAnimData[animName]["frames"] = frames
-	loadAnimList()
-	print("添加动画:",animName,str(pos),str(frames))
-# 删除动画
-func deleAnim(animName):
-	selecedFrame = ""
-	selecedAnim = ""
-	allAnimData.erase(animName)
-	loadAnimList()
-	print("删除动画"+animName)
-# 添加帧
-func addFrame(animName,frameName,tick,command):
-	allAnimData[animName]["frames"][frameName] = {}
-	allAnimData[animName]["frames"][frameName]["tick"] = tick
-	allAnimData[animName]["frames"][frameName]["command"] = command
-	loadFrameList()
-	print("添加帧:"+frameName+"\n"+command)
-# 删除帧
-func deleFrame(animName,frameName):
-	allAnimData[animName]["frames"].erase(frameName)
-	selecedFrame = ""
-	textEdit.text = ""
-	loadFrameList()
-	print("删除帧"+animName)
-
-
-
-
-
-
-
-
-
-
-
-
 
 

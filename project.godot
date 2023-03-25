@@ -10,14 +10,15 @@ config_version=4
 
 [application]
 
-config/name="指令时间线编辑器 Command Timeline Editor"
-config/description="一个可以方便地创建指令时间线的工具"
-run/main_scene="res://Main.tscn"
-boot_splash/show_image=false
+config/name="Command Timeline Editor"
+run/main_scene="res://cte.tscn"
+config/icon="res://cte.png"
+config/windows_native_icon="res://cte.ico"
 
 [display]
 
 window/dpi/allow_hidpi=true
+window/energy_saving/keep_screen_on=false
 
 [gui]
 

@@ -1,0 +1,623 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://SourceHanSansCN-Medium.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://gd/editAnim.gd" type="Script" id=2]
+[ext_resource path="res://gd/addFrame.gd" type="Script" id=3]
+[ext_resource path="res://gd/cte.gd" type="Script" id=4]
+[ext_resource path="res://gd/addAnim.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.176471, 0.176471, 0.184314, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[node name="CTE" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 0.0 ]
+}
+
+[node name="topbar" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MenuButtonFile" type="MenuButton" parent="topbar"]
+anchor_bottom = 1.0
+margin_right = 64.0
+custom_styles/focus = SubResource( 6 )
+text = "文件"
+items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保存数据包", null, 0, false, true, 1, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="MenuButtonDebug" type="MenuButton" parent="topbar"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 40.0
+focus_mode = 2
+custom_styles/focus = SubResource( 6 )
+disabled = true
+text = "Debug"
+items = [ "allAnimData", null, 0, false, false, 0, 0, null, "", false, "selected", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="settings" type="ToolButton" parent="topbar"]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 40.0
+custom_styles/focus = SubResource( 4 )
+text = "设置"
+
+[node name="about" type="ToolButton" parent="topbar"]
+margin_left = 128.0
+margin_right = 192.0
+margin_bottom = 40.0
+custom_styles/focus = SubResource( 4 )
+text = "关于"
+
+[node name="workspace" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 40.0
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="workspace"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 300
+
+[node name="list" type="VSplitContainer" parent="workspace/HSplitContainer"]
+margin_right = 300.0
+margin_bottom = 560.0
+split_offset = 350
+
+[node name="animList" type="Panel" parent="workspace/HSplitContainer/list"]
+margin_right = 300.0
+margin_bottom = 350.0
+
+[node name="ItemList" type="ItemList" parent="workspace/HSplitContainer/list/animList"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -34.0
+allow_rmb_select = true
+
+[node name="addAnim" type="ToolButton" parent="workspace/HSplitContainer/list/animList"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -36.0
+margin_top = -34.0
+margin_right = -4.0
+margin_bottom = -2.0
+hint_tooltip = "添加动画"
+custom_styles/focus = SubResource( 9 )
+disabled = true
+text = "加"
+
+[node name="deleAnim" type="ToolButton" parent="workspace/HSplitContainer/list/animList"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -68.0
+margin_top = -34.0
+margin_right = -36.0
+margin_bottom = -2.0
+hint_tooltip = "删除选中动画"
+custom_styles/focus = SubResource( 9 )
+disabled = true
+text = "删"
+
+[node name="frameList" type="Panel" parent="workspace/HSplitContainer/list"]
+margin_top = 362.0
+margin_right = 300.0
+margin_bottom = 560.0
+
+[node name="ItemList" type="ItemList" parent="workspace/HSplitContainer/list/frameList"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -32.0
+
+[node name="addFrame" type="ToolButton" parent="workspace/HSplitContainer/list/frameList"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -36.0
+margin_top = -34.0
+margin_right = -4.0
+margin_bottom = -2.0
+hint_tooltip = "添加帧"
+custom_styles/focus = SubResource( 9 )
+disabled = true
+text = "加"
+
+[node name="deleFrame" type="ToolButton" parent="workspace/HSplitContainer/list/frameList"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -68.0
+margin_top = -34.0
+margin_right = -36.0
+margin_bottom = -2.0
+hint_tooltip = "删除选中帧"
+custom_styles/focus = SubResource( 9 )
+disabled = true
+text = "删"
+
+[node name="frameTick" type="SpinBox" parent="workspace/HSplitContainer/list/frameList"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -172.0
+margin_top = -30.0
+margin_right = -72.0
+margin_bottom = 4.0
+hint_tooltip = "播放帧的 tick"
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+align = 2
+suffix = "tick"
+
+[node name="edit" type="Panel" parent="workspace/HSplitContainer"]
+margin_left = 312.0
+margin_right = 1024.0
+margin_bottom = 560.0
+
+[node name="TextEdit" type="TextEdit" parent="workspace/HSplitContainer/edit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+readonly = true
+highlight_current_line = true
+syntax_highlighting = true
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+smooth_scrolling = true
+minimap_draw = true
+caret_blink = true
+
+[node name="openDatapack" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.0
+margin_top = -212.0
+margin_right = 324.0
+margin_bottom = 212.0
+window_title = "打开文件"
+mode = 0
+access = 2
+filters = PoolStringArray( "pack.mcmeta" )
+
+[node name="addAnim" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -264.0
+margin_top = -80.0
+margin_right = 264.0
+margin_bottom = 80.0
+window_title = "新建动画"
+script = ExtResource( 5 )
+
+[node name="NameSpace" type="LineEdit" parent="addAnim"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 52.0
+placeholder_text = "动画命名空间"
+
+[node name="posSelect" type="OptionButton" parent="addAnim"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 116.0
+margin_bottom = 100.0
+text = "动画原点"
+items = [ "动画原点", null, false, 0, null, "相对坐标", null, false, 1, null, "绝对坐标", null, false, 2, null ]
+selected = 0
+
+[node name="LabelX" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -368.0
+margin_top = 64.0
+margin_right = -348.0
+margin_bottom = 100.0
+text = "X:"
+valign = 1
+
+[node name="LabelY" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -248.0
+margin_top = 64.0
+margin_right = -228.0
+margin_bottom = 100.0
+text = "Y:"
+valign = 1
+
+[node name="LabelZ" type="Label" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.0
+margin_top = 64.0
+margin_right = -108.0
+margin_bottom = 100.0
+text = "Z:"
+valign = 1
+
+[node name="X" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -348.0
+margin_top = 64.0
+margin_right = -256.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="Y" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -228.0
+margin_top = 64.0
+margin_right = -136.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="Z" type="SpinBox" parent="addAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -108.0
+margin_top = 64.0
+margin_right = -16.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="confirm" type="Button" parent="addAnim"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 112.0
+margin_right = -16.0
+margin_bottom = 142.0
+disabled = true
+text = "创建"
+
+[node name="addFrame" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -264.0
+margin_top = -80.0
+margin_right = 264.0
+margin_bottom = 80.0
+window_title = "新建帧"
+script = ExtResource( 3 )
+
+[node name="NameSpace" type="LineEdit" parent="addFrame"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 50.0
+placeholder_text = "帧命名空间"
+
+[node name="Label" type="Label" parent="addFrame"]
+margin_left = 16.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 92.0
+text = "帧时间"
+align = 1
+valign = 1
+
+[node name="Time" type="SpinBox" parent="addFrame"]
+anchor_right = 1.0
+margin_left = 88.0
+margin_top = 60.0
+margin_right = -228.0
+margin_bottom = 94.0
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+align = 2
+suffix = "tick"
+
+[node name="confirm" type="Button" parent="addFrame"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 112.0
+margin_right = -16.0
+margin_bottom = 142.0
+disabled = true
+text = "创建"
+
+[node name="editAnim" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -264.0
+margin_top = -80.0
+margin_right = 264.0
+margin_bottom = 80.0
+window_title = "编辑动画信息"
+script = ExtResource( 2 )
+
+[node name="confirm" type="Button" parent="editAnim"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 112.0
+margin_right = -16.0
+margin_bottom = 142.0
+disabled = true
+text = "确定"
+
+[node name="NameSpace" type="LineEdit" parent="editAnim"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 52.0
+placeholder_text = "动画命名空间"
+
+[node name="posSelect" type="OptionButton" parent="editAnim"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 116.0
+margin_bottom = 100.0
+text = "动画原点"
+items = [ "动画原点", null, false, 0, null, "相对坐标", null, false, 1, null, "绝对坐标", null, false, 2, null ]
+selected = 0
+
+[node name="LabelX" type="Label" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -368.0
+margin_top = 64.0
+margin_right = -348.0
+margin_bottom = 100.0
+text = "X:"
+valign = 1
+
+[node name="LabelY" type="Label" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -248.0
+margin_top = 64.0
+margin_right = -228.0
+margin_bottom = 100.0
+text = "Y:"
+valign = 1
+
+[node name="LabelZ" type="Label" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.0
+margin_top = 64.0
+margin_right = -108.0
+margin_bottom = 100.0
+text = "Z:"
+valign = 1
+
+[node name="X" type="SpinBox" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -348.0
+margin_top = 64.0
+margin_right = -256.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="Y" type="SpinBox" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -228.0
+margin_top = 64.0
+margin_right = -136.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="Z" type="SpinBox" parent="editAnim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -108.0
+margin_top = 64.0
+margin_right = -16.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 48, 24 )
+step = 0.0
+allow_greater = true
+allow_lesser = true
+align = 2
+editable = false
+
+[node name="settings" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -208.0
+margin_top = -144.0
+margin_right = 208.0
+margin_bottom = 144.0
+window_title = "设置"
+
+[node name="is_autoSave" type="CheckButton" parent="settings"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 20.0
+margin_right = -16.0
+margin_bottom = 60.0
+custom_styles/focus = SubResource( 10 )
+text = "自动保存"
+flat = true
+
+[node name="autoSaveTime" type="SpinBox" parent="settings"]
+margin_left = 326.0
+margin_top = 68.0
+margin_right = 400.0
+margin_bottom = 102.0
+min_value = 1.0
+value = 5.0
+align = 2
+suffix = "s"
+
+[node name="Label" type="Label" parent="settings"]
+margin_left = 16.0
+margin_top = 60.0
+margin_right = 124.0
+margin_bottom = 100.0
+text = "自动保存间隔"
+align = 1
+valign = 1
+
+[node name="ConfirmationDeleAnim" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -116.0
+margin_top = -44.0
+margin_right = 116.0
+margin_bottom = 44.0
+window_title = "请确认..."
+dialog_text = "确定删除动画 %s 吗？"
+
+[node name="ConfirmationDeleFrame" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -116.0
+margin_top = -44.0
+margin_right = 116.0
+margin_bottom = 44.0
+window_title = "请确认..."
+dialog_text = "确定删除帧 %s 吗？"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -164.0
+margin_top = -52.5
+margin_right = 164.0
+margin_bottom = 52.5
+popup_exclusive = true
+window_title = "警告！"
+dialog_text = "本软件仍处于早期开发阶段，强烈建议您及时备份，以免造成不必要的数据丢失。"
+dialog_autowrap = true
+
+[node name="about" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = -72.0
+margin_right = 176.0
+margin_bottom = 72.0
+window_title = "关于"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="about"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 20.0
+margin_right = -24.0
+margin_bottom = -20.0
+text = "Command Timeline Editor
+孤帆gufandf
+
+Powered by Godot Game Engine"
+
+[node name="autoSaveTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="pressed" from="topbar/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="topbar/about" to="." method="_on_about_pressed"]
+[connection signal="item_rmb_selected" from="workspace/HSplitContainer/list/animList/ItemList" to="." method="_on_AnimItemList_item_rmb_selected"]
+[connection signal="item_selected" from="workspace/HSplitContainer/list/animList/ItemList" to="." method="_on_animList_selected"]
+[connection signal="pressed" from="workspace/HSplitContainer/list/animList/addAnim" to="." method="_on_addAnim_pressed"]
+[connection signal="pressed" from="workspace/HSplitContainer/list/animList/deleAnim" to="." method="_on_deleAnim_pressed"]
+[connection signal="item_selected" from="workspace/HSplitContainer/list/frameList/ItemList" to="." method="_on_frameList_selected"]
+[connection signal="pressed" from="workspace/HSplitContainer/list/frameList/addFrame" to="." method="_on_addFrame_pressed"]
+[connection signal="pressed" from="workspace/HSplitContainer/list/frameList/deleFrame" to="." method="_on_deleFrame_pressed"]
+[connection signal="value_changed" from="workspace/HSplitContainer/list/frameList/frameTick" to="." method="_on_frameTick_value_changed"]
+[connection signal="text_changed" from="workspace/HSplitContainer/edit/TextEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="file_selected" from="openDatapack" to="." method="_on_openDatapack_file_selected"]
+[connection signal="addAnim" from="addAnim" to="." method="_on_addAnim_addAnim"]
+[connection signal="text_changed" from="addAnim/NameSpace" to="addAnim" method="_on_NameSpace_text_changed"]
+[connection signal="item_selected" from="addAnim/posSelect" to="addAnim" method="_on_posSelect_item_selected"]
+[connection signal="pressed" from="addAnim/confirm" to="addAnim" method="_on_confirm_pressed"]
+[connection signal="addFrame" from="addFrame" to="." method="_on_addFrame_addFrame"]
+[connection signal="text_changed" from="addFrame/NameSpace" to="addFrame" method="_on_NameSpace_text_changed"]
+[connection signal="pressed" from="addFrame/confirm" to="addFrame" method="_on_confirm_pressed"]
+[connection signal="about_to_show" from="editAnim" to="editAnim" method="_on_editAnim_about_to_show"]
+[connection signal="editAnim" from="editAnim" to="." method="_on_editAnim_editAnim"]
+[connection signal="pressed" from="editAnim/confirm" to="editAnim" method="_on_confirm_pressed"]
+[connection signal="text_changed" from="editAnim/NameSpace" to="editAnim" method="_on_NameSpace_text_changed"]
+[connection signal="item_selected" from="editAnim/posSelect" to="editAnim" method="_on_posSelect_item_selected"]
+[connection signal="toggled" from="settings/is_autoSave" to="." method="_on_autoSave_toggled"]
+[connection signal="value_changed" from="settings/autoSaveTime" to="." method="_on_autoSaveTime_value_changed"]
+[connection signal="confirmed" from="ConfirmationDeleAnim" to="." method="_on_ConfirmationDeleAnim_confirmed"]
+[connection signal="confirmed" from="ConfirmationDeleFrame" to="." method="_on_ConfirmationDeleFrame_confirmed"]
+[connection signal="timeout" from="autoSaveTimer" to="." method="_on_autoSave_timeout"]
