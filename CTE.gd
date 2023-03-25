@@ -14,6 +14,8 @@ onready var addFrame = $addFrame
 onready var addFrameTime = $addFrame/Time
 onready var addFrameButton = $workspace/HSplitContainer/list/frameList/addFrame
 onready var deleFrameButton = $workspace/HSplitContainer/list/frameList/deleFrame
+onready var addAnimButton = $workspace/HSplitContainer/list/animList/addAnim
+onready var deleAnimButton = $workspace/HSplitContainer/list/animList/deleAnim
 
 var root = ""
 var FuncRoot = ""
@@ -143,11 +145,14 @@ func loadData(path:String):
 
 	for animPath in scan(playRoot):
 		var animName = animPath.get_basename().get_file()
+		var animPathFile = readFile(animPath)
+		var animPos = {"x":animPathFile.split(" ")[2],"y":animPathFile.split(" ")[3],"z":animPathFile.split(" ")[4]}
 		allAnimData[animName] = {}
 		allAnimData[animName]["frames"] = {}
+		allAnimData[animName]["pos"] = animPos
 		print("\n"+framesRoot+"/"+animName+"/_play_frames.mcfunction")
 		print("发现动画:",animName)
-		print("动画原点: ?")
+		print("\t动画原点:",animPos)
 		var file = readFile(framesRoot+"/"+animName+"/_play_frames.mcfunction")
 		for codeLine in file.split("\n",false):
 			var frameName = codeLine.split("/",false)[-1]
@@ -158,9 +163,6 @@ func loadData(path:String):
 				allAnimData[animName]["frames"][frameName]["tick"] = int(tick)
 				allAnimData[animName]["frames"][frameName]["command"] = frameData
 				print("\t包含帧:",frameName)
-				print("\ttick:",tick)
-				print("\t\t",frameData)
-	print(allAnimData)
 	loadAnimList()
 
 
@@ -179,7 +181,7 @@ func saveData():
 		# tick
 		tickmc += 'execute as @e[nbt={Tags:["gf_animation_player","%s","playing"]}] at @s run function cte:frames/%s/_play_frames\n' % [animName,animName]
 		# /play/animName
-		writeFile(playRoot+"/"+animName+".mcfunction",'summon marker ~ ~ ~ {Tags:["gf_animation_player","%s","playing"]}' % animName)
+		writeFile(playRoot+"/"+animName+".mcfunction",'summon marker %s %s %s {Tags:["gf_animation_player","%s","playing"]}' % [allAnimData[animName]["pos"]["x"],allAnimData[animName]["pos"]["y"],allAnimData[animName]["pos"]["z"],animName])
 		# /frames/animName/_play_frames
 		var _play_frames = ""
 		lastFrameTime = 0
@@ -194,41 +196,53 @@ func saveData():
 	writeFile(FuncRoot+"/"+"tick.mcfunction",tickmc)
 
 # 刷新UI
+func loadButton():
+	if selecedAnim == "":
+		deleAnimButton.disabled = true
+		addFrameButton.disabled = true
+	else:
+		deleAnimButton.disabled = false
+		addFrameButton.disabled = false
+	if selecedFrame == "":
+		textEdit.readonly = true
+		deleFrameButton.disabled = true
+	else:
+		textEdit.readonly = false
+		deleFrameButton.disabled = false
+
 func loadAnimList():
 	selecedAnim = ""
 	selecedFrame = ""
 	animList.clear()
-	addFrameButton.disabled = true
-	deleFrameButton.disabled = true
+	loadFrameList()
+	loadButton()
 	for animName in allAnimData:
 		animList.add_item(animName)
 
 func loadFrameList():
 	selecedFrame = ""
+	textEdit.text = ""
 	frameList.clear()
+	loadButton()
 	if selecedAnim != "":
 		for FrameName in allAnimData[selecedAnim]["frames"]:
 			frameList.add_item(FrameName)
 
 func loadFrame():
-	print(selecedFrame)
+	loadButton()
 	var command = allAnimData[selecedAnim]["frames"][selecedFrame]["command"]
 	textEdit.text = command
+
 
 # 选择动画与帧
 func _on_animList_selected(index):
 	selecedAnim = animList.get_item_text(index)
 	loadFrameList()
-	textEdit.text = ""
-	textEdit.readonly = true
-	addFrameButton.disabled = false
-	deleFrameButton.disabled = false
 	print("选中动画:"+selecedAnim)
 
 func _on_frameList_selected(index):
 	selecedFrame = frameList.get_item_text(index)
 	loadFrame()
-	textEdit.readonly = false
 	print("选中帧:"+selecedFrame)
 
 # 编辑
@@ -252,38 +266,23 @@ func _on_addAnim_pressed():
 	addAnim.popup()
 func _on_addAnim_addAnim(animName,pos,data):
 	addAnim(animName,pos,{})
-	loadAnimList()
 # 删除动画
 func _on_deleAnim_pressed():
-	if selecedAnim != "":
-		$ConfirmationDeleAnim.popup()
-		$ConfirmationDeleAnim.dialog_text = "确定删除动画 %s 吗？" % selecedAnim
+	$ConfirmationDeleAnim.popup()
+	$ConfirmationDeleAnim.dialog_text = "确定删除动画 %s 吗？" % selecedAnim
 func _on_ConfirmationDeleAnim_confirmed():
 	deleAnim(selecedAnim)
-	loadAnimList()
 # 添加帧
 func _on_addFrame_pressed():
 	addFrame.popup()
 func _on_addFrame_addFrame(frameName, tick, command):
 	addFrame(selecedAnim,frameName,tick,command)
-	loadFrameList()
-#func _on_addFrame_confirm_pressed():
-#	var frameTime = addFrameTime.value
-#	allAnimData[selecedAnim]["frames"][] = ""
-#	addFrame.hide()
-#	loadAnimList()
 # 删除帧
 func _on_deleFrame_pressed():
-	if selecedFrame != "":
-		$ConfirmationDeleFrame.popup()
-		$ConfirmationDeleFrame.dialog_text = "确定删除帧 %s 吗？" % selecedFrame
+	$ConfirmationDeleFrame.popup()
+	$ConfirmationDeleFrame.dialog_text = "确定删除帧 %s 吗？" % selecedFrame
 func _on_ConfirmationDeleFrame_confirmed():
-	if selecedAnim != "" and selecedFrame != "":
-		deleFrame(selecedAnim,selecedFrame)
-		selecedFrame = ""
-		textEdit.text = ""
-		textEdit.readonly = true
-		loadFrameList()
+	deleFrame(selecedAnim,selecedFrame)
 
 ## 函数
 
@@ -292,24 +291,28 @@ func addAnim(animName:String,pos:Dictionary,frames:Dictionary):
 	allAnimData[animName] = {}
 	allAnimData[animName]["pos"] = pos
 	allAnimData[animName]["frames"] = frames
+	loadAnimList()
 	print("添加动画:",animName,str(pos),str(frames))
 # 删除动画
 func deleAnim(animName):
+	selecedFrame = ""
+	selecedAnim = ""
 	allAnimData.erase(animName)
+	loadAnimList()
 	print("删除动画"+animName)
 # 添加帧
 func addFrame(animName,frameName,tick,command):
 	allAnimData[animName]["frames"][frameName] = {}
 	allAnimData[animName]["frames"][frameName]["tick"] = tick
 	allAnimData[animName]["frames"][frameName]["command"] = command
+	loadFrameList()
 	print("添加帧:"+frameName+"\n"+command)
 # 删除帧
 func deleFrame(animName,frameName):
 	allAnimData[animName]["frames"].erase(frameName)
+	selecedFrame = ""
+	textEdit.text = ""
+	loadFrameList()
 	print("删除帧"+animName)
-
-
-
-
 
 

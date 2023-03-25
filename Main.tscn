@@ -48,9 +48,10 @@ items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保�
 switch_on_hover = true
 
 [node name="MenuButtonDebug" type="MenuButton" parent="topbar"]
-anchor_bottom = 1.0
-margin_left = 960.0
-margin_right = 1024.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 40.0
 focus_mode = 2
 custom_styles/focus = SubResource( 6 )
 text = "Dubug"
@@ -58,19 +59,15 @@ items = [ "allAnimData", null, 0, false, false, 0, 0, null, "", false, "selected
 switch_on_hover = true
 
 [node name="settings" type="ToolButton" parent="topbar"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -960.0
-margin_right = -896.0
+margin_left = 64.0
+margin_right = 128.0
 margin_bottom = 40.0
 custom_styles/focus = SubResource( 4 )
 text = "设置"
 
 [node name="about" type="ToolButton" parent="topbar"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -896.0
-margin_right = -832.0
+margin_left = 128.0
+margin_right = 192.0
 margin_bottom = 40.0
 custom_styles/focus = SubResource( 4 )
 text = "关于"
@@ -127,6 +124,7 @@ margin_right = -36.0
 margin_bottom = -2.0
 hint_tooltip = "删除选中动画"
 custom_styles/focus = SubResource( 9 )
+disabled = true
 text = "删"
 
 [node name="frameList" type="Panel" parent="workspace/HSplitContainer/list"]
@@ -181,10 +179,6 @@ smooth_scrolling = true
 minimap_draw = true
 caret_blink = true
 
-[node name="autoSaveTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [node name="openDatapack" type="FileDialog" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -204,9 +198,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -228.0
+margin_left = -264.0
 margin_top = -80.0
-margin_right = 228.0
+margin_right = 264.0
 margin_bottom = 80.0
 window_title = "新建动画"
 script = ExtResource( 3 )
@@ -231,9 +225,9 @@ selected = 0
 [node name="LabelX" type="Label" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -328.0
+margin_left = -368.0
 margin_top = 64.0
-margin_right = -312.0
+margin_right = -348.0
 margin_bottom = 100.0
 text = "X:"
 valign = 1
@@ -241,9 +235,9 @@ valign = 1
 [node name="LabelY" type="Label" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -220.0
+margin_left = -248.0
 margin_top = 64.0
-margin_right = -192.0
+margin_right = -228.0
 margin_bottom = 100.0
 text = "Y:"
 valign = 1
@@ -251,9 +245,9 @@ valign = 1
 [node name="LabelZ" type="Label" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -112.0
+margin_left = -128.0
 margin_top = 64.0
-margin_right = -92.0
+margin_right = -108.0
 margin_bottom = 100.0
 text = "Z:"
 valign = 1
@@ -261,9 +255,9 @@ valign = 1
 [node name="X" type="SpinBox" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -308.0
+margin_left = -348.0
 margin_top = 64.0
-margin_right = -232.0
+margin_right = -256.0
 margin_bottom = 100.0
 rect_pivot_offset = Vector2( 48, 24 )
 step = 0.0
@@ -275,9 +269,9 @@ editable = false
 [node name="Y" type="SpinBox" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -200.0
+margin_left = -228.0
 margin_top = 64.0
-margin_right = -124.0
+margin_right = -136.0
 margin_bottom = 100.0
 rect_pivot_offset = Vector2( 48, 24 )
 step = 0.0
@@ -288,7 +282,7 @@ editable = false
 [node name="Z" type="SpinBox" parent="addAnim"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -92.0
+margin_left = -108.0
 margin_top = 64.0
 margin_right = -16.0
 margin_bottom = 100.0
@@ -464,6 +458,10 @@ margin_right = 332.0
 margin_bottom = 84.0
 texture = ExtResource( 2 )
 
+[node name="autoSaveTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="pressed" from="topbar/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="topbar/about" to="." method="_on_about_pressed"]
 [connection signal="item_selected" from="workspace/HSplitContainer/list/animList/ItemList" to="." method="_on_animList_selected"]
@@ -473,7 +471,6 @@ texture = ExtResource( 2 )
 [connection signal="pressed" from="workspace/HSplitContainer/list/frameList/addFrame" to="." method="_on_addFrame_pressed"]
 [connection signal="pressed" from="workspace/HSplitContainer/list/frameList/deleFrame" to="." method="_on_deleFrame_pressed"]
 [connection signal="text_changed" from="workspace/HSplitContainer/TextEdit" to="." method="_on_TextEdit_text_changed"]
-[connection signal="timeout" from="autoSaveTimer" to="." method="_on_autoSave_timeout"]
 [connection signal="file_selected" from="openDatapack" to="." method="_on_openDatapack_file_selected"]
 [connection signal="addAnim" from="addAnim" to="." method="_on_addAnim_addAnim"]
 [connection signal="text_changed" from="addAnim/NameSpace" to="addAnim" method="_on_NameSpace_text_changed"]
@@ -486,3 +483,4 @@ texture = ExtResource( 2 )
 [connection signal="value_changed" from="settings/autoSaveTime" to="." method="_on_autoSaveTime_value_changed"]
 [connection signal="confirmed" from="ConfirmationDeleAnim" to="." method="_on_ConfirmationDeleAnim_confirmed"]
 [connection signal="confirmed" from="ConfirmationDeleFrame" to="." method="_on_ConfirmationDeleFrame_confirmed"]
+[connection signal="timeout" from="autoSaveTimer" to="." method="_on_autoSave_timeout"]
