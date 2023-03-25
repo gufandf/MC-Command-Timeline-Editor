@@ -481,7 +481,6 @@ texture = ExtResource( 2 )
 [connection signal="pressed" from="addAnim/confirm" to="addAnim" method="_on_confirm_pressed"]
 [connection signal="addFrame" from="addFrame" to="." method="_on_addFrame_addFrame"]
 [connection signal="text_changed" from="addFrame/NameSpace" to="addFrame" method="_on_NameSpace_text_changed"]
-[connection signal="pressed" from="addFrame/confirm" to="." method="_on_addFrame_confirm_pressed"]
 [connection signal="pressed" from="addFrame/confirm" to="addFrame" method="_on_confirm_pressed"]
 [connection signal="toggled" from="settings/is_autoSave" to="." method="_on_autoSave_toggled"]
 [connection signal="value_changed" from="settings/autoSaveTime" to="." method="_on_autoSaveTime_value_changed"]

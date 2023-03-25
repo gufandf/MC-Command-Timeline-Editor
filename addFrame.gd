@@ -20,6 +20,8 @@ func changeButton():
 		$confirm.disabled = false
 
 func _on_confirm_pressed():
-	emit_signal("addFrame",$NameSpace.text,$Time.value,"")
+	if $NameSpace.text != "":
+		emit_signal("addFrame",$NameSpace.text,$Time.value,"")
+		self.hide()
 
 
