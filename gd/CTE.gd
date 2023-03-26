@@ -312,6 +312,16 @@ func _on_AnimItemList_item_rmb_selected(index,at_position):
 	loadFrameList()
 	print("编辑动画:"+selecedAnim)
 	$editAnim/NameSpace.text = selecedAnim
+	if "~" in allAnimData[selecedAnim]["pos"]["x"]:
+		$editAnim/posSelect.select(1)
+	else:
+		$editAnim/posSelect.select(2)
+	$editAnim/X.editable = true
+	$editAnim/Y.editable = true
+	$editAnim/Z.editable = true
+	$editAnim/X.value = int(allAnimData[selecedAnim]["pos"]["x"].trim_prefix("~"))
+	$editAnim/Y.value = int(allAnimData[selecedAnim]["pos"]["y"].trim_prefix("~"))
+	$editAnim/Z.value = int(allAnimData[selecedAnim]["pos"]["z"].trim_prefix("~"))
 	$editAnim.popup()
 func _on_editAnim_editAnim(animName, pos):
 	var oldAnimName = selecedAnim
