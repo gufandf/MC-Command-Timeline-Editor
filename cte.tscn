@@ -39,9 +39,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="MenuButtonMenu" type="MenuButton" parent="topbar"]
+margin_right = 64.0
+margin_bottom = 40.0
+text = "菜单"
+items = [ "设置", null, 0, false, false, 0, 0, null, "", false, "关于", null, 0, false, false, 1, 0, null, "", false ]
+
 [node name="MenuButtonFile" type="MenuButton" parent="topbar"]
 anchor_bottom = 1.0
-margin_right = 64.0
+margin_left = 64.0
+margin_right = 128.0
 custom_styles/focus = SubResource( 6 )
 text = "文件"
 items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保存数据包", null, 0, false, true, 1, 0, null, "", false ]
@@ -52,6 +59,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -64.0
 margin_bottom = 40.0
+hint_tooltip = "开发用"
 focus_mode = 2
 custom_styles/focus = SubResource( 6 )
 disabled = true
@@ -60,13 +68,15 @@ items = [ "allAnimData", null, 0, false, false, 0, 0, null, "", false, "selected
 switch_on_hover = true
 
 [node name="settings" type="ToolButton" parent="topbar"]
-margin_left = 64.0
-margin_right = 128.0
+visible = false
+margin_left = 192.0
+margin_right = 256.0
 margin_bottom = 40.0
 custom_styles/focus = SubResource( 4 )
 text = "设置"
 
 [node name="about" type="ToolButton" parent="topbar"]
+visible = false
 margin_left = 128.0
 margin_right = 192.0
 margin_bottom = 40.0
@@ -139,6 +149,7 @@ margin_bottom = 560.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -32.0
+allow_rmb_select = true
 
 [node name="addFrame" type="ToolButton" parent="workspace/HSplitContainer/list/frameList"]
 anchor_left = 1.0
@@ -592,8 +603,6 @@ Powered by Godot Game Engine"
 wait_time = 5.0
 autostart = true
 
-[connection signal="pressed" from="topbar/settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="topbar/about" to="." method="_on_about_pressed"]
 [connection signal="item_rmb_selected" from="workspace/HSplitContainer/list/animList/ItemList" to="." method="_on_AnimItemList_item_rmb_selected"]
 [connection signal="item_selected" from="workspace/HSplitContainer/list/animList/ItemList" to="." method="_on_animList_selected"]
 [connection signal="pressed" from="workspace/HSplitContainer/list/animList/addAnim" to="." method="_on_addAnim_pressed"]

@@ -2,6 +2,7 @@ extends Control
 
 onready var MenuButtonFile = $topbar/MenuButtonFile
 onready var MenuButtonDebug = $topbar/MenuButtonDebug
+onready var MenuButtonMenu = $topbar/MenuButtonMenu
 onready var openDatapack = $openDatapack
 
 onready var animList = $workspace/HSplitContainer/list/animList/ItemList
@@ -52,12 +53,20 @@ func _ready():
 	tickRegex.compile("animFrames=[0-9]{1,}")
 	posRegex.compile("animFrames=.*？")
 	
+	MenuButtonMenu.get_popup().connect("id_pressed",self,"_menu_id_pressed")
 	MenuButtonFile.get_popup().connect("id_pressed",self,"_file_id_pressed")
 	MenuButtonDebug.get_popup().connect("id_pressed",self,"_debug_pressed")
 	$AcceptDialog.popup()
 	loadAnimList()
 
 # 菜单栏
+# 菜单
+func _menu_id_pressed(id):
+	if id == 0:
+		$settings.popup()
+	if id == 1:
+		$about.popup()
+
 # file
 func _file_id_pressed(id):
 	if id == 0:
@@ -65,12 +74,14 @@ func _file_id_pressed(id):
 	if id == 1:
 		if root != "":
 			saveData()
-# 设置
-func _on_settings_pressed():
-	$settings.popup()
-# 关于
-func _on_about_pressed():
-	$about.popup()
+
+## 设置
+#func _on_settings_pressed():
+#	$settings.popup()
+## 关于
+#func _on_about_pressed():
+#	$about.popup()
+
 # debug
 func _debug_pressed(id):
 	if id == 0:
