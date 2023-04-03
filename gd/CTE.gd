@@ -364,3 +364,7 @@ func _on_ConfirmationDeleFrame_confirmed():
 	deleFrame(selecedAnim,selecedFrame)
 
 
+
+
+
+
