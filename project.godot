@@ -12,6 +12,9 @@ config_version=4
 
 config/name="Command Timeline Editor"
 run/main_scene="res://cte.tscn"
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://cte.png"
 config/windows_native_icon="res://cte.ico"
 
