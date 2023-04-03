@@ -153,10 +153,10 @@ func loadData(path:String):
 	createDir(root+"/data/minecraft")
 	createDir(root+"/data/minecraft/tags")
 	createDir(root+"/data/minecraft/tags/functions")
-	var mineload = '{"replace": false,"values": ["cte:load"]}'
-	var minetick = '{"replace": false,"values": ["cte:tick"]}'
-	writeFile(root+"/data/minecraft/tags/functions/load.json",mineload)
-	writeFile(root+"/data/minecraft/tags/functions/tick.json",minetick)
+	#var mineload = '{"replace": false,"values": ["cte:load"]}'
+	#var minetick = '{"replace": false,"values": ["cte:tick"]}'
+	#writeFile(root+"/data/minecraft/tags/functions/load.json",mineload)
+	#writeFile(root+"/data/minecraft/tags/functions/tick.json",minetick)
 	createDir(playRoot)
 	createDir(framesRoot)
 	
