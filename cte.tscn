@@ -3,7 +3,7 @@
 [ext_resource path="res://SourceHanSansCN-Medium.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://gd/editAnim.gd" type="Script" id=2]
 [ext_resource path="res://gd/addFrame.gd" type="Script" id=3]
-[ext_resource path="res://gd/cte.gd" type="Script" id=4]
+[ext_resource path="res://gd/CTE.gd" type="Script" id=4]
 [ext_resource path="res://gd/addAnim.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
@@ -44,6 +44,7 @@ margin_right = 64.0
 margin_bottom = 40.0
 text = "菜单"
 items = [ "设置", null, 0, false, false, 0, 0, null, "", false, "关于", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
 
 [node name="MenuButtonFile" type="MenuButton" parent="topbar"]
 anchor_bottom = 1.0
