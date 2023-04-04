@@ -139,7 +139,6 @@ func scan(path:String) -> Array:
 
 # 打开数据包
 func loadData(path:String):
-	saveData()
 	allAnimData.clear()
 	addAnimButton.disabled = false
 	

@@ -122,7 +122,7 @@ margin_left = -36.0
 margin_top = -34.0
 margin_right = -4.0
 margin_bottom = -2.0
-hint_tooltip = "添加动画"
+hint_tooltip = "添加指令时间线"
 custom_styles/focus = SubResource( 9 )
 disabled = true
 text = "加"
@@ -136,7 +136,7 @@ margin_left = -68.0
 margin_top = -34.0
 margin_right = -36.0
 margin_bottom = -2.0
-hint_tooltip = "删除选中动画"
+hint_tooltip = "删除选中指令时间线"
 custom_styles/focus = SubResource( 9 )
 disabled = true
 text = "删"
@@ -238,7 +238,7 @@ margin_left = -264.0
 margin_top = -80.0
 margin_right = 264.0
 margin_bottom = 80.0
-window_title = "新建动画"
+window_title = "新建指令时间线"
 script = ExtResource( 5 )
 
 [node name="NameSpace" type="LineEdit" parent="addAnim"]
@@ -247,14 +247,14 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = -16.0
 margin_bottom = 52.0
-placeholder_text = "动画命名空间"
+placeholder_text = "指令时间线命名空间"
 
 [node name="posSelect" type="OptionButton" parent="addAnim"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 116.0
 margin_bottom = 100.0
-text = "动画原点"
+text = "播放原点"
 items = [ "动画原点", null, false, 0, null, "相对坐标", null, false, 1, null, "绝对坐标", null, false, 2, null ]
 selected = 0
 
@@ -398,7 +398,7 @@ margin_left = -264.0
 margin_top = -80.0
 margin_right = 264.0
 margin_bottom = 80.0
-window_title = "编辑动画信息"
+window_title = "编辑指令时间线信息"
 script = ExtResource( 2 )
 
 [node name="confirm" type="Button" parent="editAnim"]
