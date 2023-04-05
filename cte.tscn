@@ -254,7 +254,7 @@ margin_left = 16.0
 margin_top = 64.0
 margin_right = 116.0
 margin_bottom = 100.0
-text = "播放原点"
+text = "动画原点"
 items = [ "动画原点", null, false, 0, null, "相对坐标", null, false, 1, null, "绝对坐标", null, false, 2, null ]
 selected = 0
 
