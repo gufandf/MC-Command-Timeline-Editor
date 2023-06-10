@@ -74,6 +74,10 @@ func _file_id_pressed(id):
 	if id == 1:
 		if root != "":
 			saveData()
+	if id == 2:
+		if root != "":
+			allAnimData = {}
+			loadData(root+"/pack.mcmeta")
 
 ## 设置
 #func _on_settings_pressed():
@@ -93,6 +97,7 @@ func _debug_pressed(id):
 # 读取数据包
 func _on_openDatapack_file_selected(path):
 	$topbar/MenuButtonFile.get_popup().set_item_disabled(1,false)
+	$topbar/MenuButtonFile.get_popup().set_item_disabled(2,false)
 	loadData(path)
 
 # 读取文件
