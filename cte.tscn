@@ -7,7 +7,7 @@
 [ext_resource path="res://gd/addAnim.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 20
+size = 18
 font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
@@ -522,9 +522,9 @@ text = "自动保存"
 flat = true
 
 [node name="autoSaveTime" type="SpinBox" parent="settings"]
-margin_left = 326.0
+margin_left = 296.0
 margin_top = 68.0
-margin_right = 400.0
+margin_right = 394.0
 margin_bottom = 102.0
 min_value = 1.0
 value = 5.0
@@ -532,10 +532,10 @@ align = 2
 suffix = "s"
 
 [node name="Label" type="Label" parent="settings"]
-margin_left = 16.0
-margin_top = 60.0
-margin_right = 124.0
-margin_bottom = 100.0
+margin_left = 24.0
+margin_top = 68.0
+margin_right = 144.0
+margin_bottom = 108.0
 text = "自动保存间隔"
 align = 1
 valign = 1
@@ -584,9 +584,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -176.0
-margin_top = -72.0
+margin_top = -92.0
 margin_right = 176.0
-margin_bottom = 72.0
+margin_bottom = 92.0
 window_title = "关于"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="about"]
@@ -596,10 +596,12 @@ margin_left = 24.0
 margin_top = 20.0
 margin_right = -24.0
 margin_bottom = -20.0
-text = "Command Timeline Editor
+text = "指令时间线编辑器
+Command Timeline Editor
 孤帆gufandf
 
-Powered by Godot Game Engine"
+使用 Godot Game Engine 制作
+字体 俐方體11號／Cubic 11"
 
 [node name="autoSaveTimer" type="Timer" parent="."]
 wait_time = 5.0
