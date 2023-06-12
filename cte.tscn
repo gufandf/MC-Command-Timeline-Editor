@@ -1,12 +1,13 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://SourceHanSansCN-Medium.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Cubic_11_1.013_R.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://gd/editAnim.gd" type="Script" id=2]
 [ext_resource path="res://gd/addFrame.gd" type="Script" id=3]
 [ext_resource path="res://gd/CTE.gd" type="Script" id=4]
 [ext_resource path="res://gd/addAnim.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
+size = 20
 font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
