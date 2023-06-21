@@ -181,11 +181,13 @@ func loadData(path:String):
 				var frameData = readFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction")
 				allAnimData[animName]["frames"][frameName] = {}
 				allAnimData[animName]["frames"][frameName]["tick"] = int(tick)
-				print(frameData.split("\n",false))
 				if "[调试][CTE]" in frameData:
-					print(frameData.split("\n",false).remove(-1))
-					frameData = PoolStringArray(frameData.split("\n").remove(-1))
-				allAnimData[animName]["frames"][frameName]["command"] = frameData
+					var frameDataList = frameData.split("\n",false)
+					frameDataList.remove(-1)
+					var finlFrameData
+					for i in range(len(frameDataList)):
+						finlFrameData += frameDataList[i]
+				allAnimData[animName]["frames"][frameName]["command"] = finlFrameData
 				print("\t包含帧:",frameName)
 	loadAnimList()
 
@@ -216,7 +218,7 @@ func saveData():
 			_play_frames += 'execute if entity @s[scores={animFrames=%s}] run function cte:frames/%s/%s\n' % [allAnimData[animName]["frames"][frameName]["tick"],animName,frameName]
 			var frameCommand = allAnimData[animName]["frames"][frameName]["command"]
 			if debugMode == true:
-				frameCommand += '\ntellraw @a [{"text":"[调试][CTE]正在播放动画 '+animName+' 中的帧 '+frameName+'","color":"yellow"}]'
+				frameCommand += '\ntellraw @a [{"text":"[调试][CTE]正在播放动画 '+animName+' 中的帧 '+frameName+'","color":"yellow"}]'
 			writeFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction",frameCommand)
 		_play_frames += 'execute if entity @s[scores={animFrames=%s}] run kill @s' % lastFrameTime
 		writeFile(framesRoot+"/"+animName+"/_play_frames.mcfunction",_play_frames)
