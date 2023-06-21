@@ -19,6 +19,8 @@ onready var addAnimButton = $workspace/HSplitContainer/list/animList/addAnim
 onready var deleAnimButton = $workspace/HSplitContainer/list/animList/deleAnim
 onready var editFrameTick = $workspace/HSplitContainer/list/frameList/frameTick
 
+var debugMode = false
+
 var root = ""
 var FuncRoot = ""
 
@@ -66,7 +68,6 @@ func _menu_id_pressed(id):
 		$settings.popup()
 	if id == 1:
 		$about.popup()
-
 # file
 func _file_id_pressed(id):
 	if id == 0:
@@ -78,13 +79,9 @@ func _file_id_pressed(id):
 		if root != "":
 			allAnimData = {}
 			loadData(root+"/pack.mcmeta")
-
-## 设置
-#func _on_settings_pressed():
-#	$settings.popup()
-## 关于
-#func _on_about_pressed():
-#	$about.popup()
+	if id == 3:
+		$topbar/MenuButtonFile.get_popup().toggle_item_checked(3)
+		debugMode = $topbar/MenuButtonFile.get_popup().is_item_checked(3)
 
 # debug
 func _debug_pressed(id):
@@ -176,6 +173,7 @@ func loadData(path:String):
 		print("发现动画:",animName)
 		print("\t动画原点:",animPos)
 		var file = readFile(framesRoot+"/"+animName+"/_play_frames.mcfunction")
+		#从play-frames中找到所有帧文件的路径
 		for codeLine in file.split("\n",false):
 			var frameName = codeLine.split("/",false)[-1]
 			var tick = tickRegex.search(codeLine).get_string().split("=")[1]
@@ -183,11 +181,15 @@ func loadData(path:String):
 				var frameData = readFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction")
 				allAnimData[animName]["frames"][frameName] = {}
 				allAnimData[animName]["frames"][frameName]["tick"] = int(tick)
+				print(frameData.split("\n",false))
+				if "[调试][CTE]" in frameData:
+					print(frameData.split("\n",false).remove(-1))
+					frameData = PoolStringArray(frameData.split("\n").remove(-1))
 				allAnimData[animName]["frames"][frameName]["command"] = frameData
 				print("\t包含帧:",frameName)
 	loadAnimList()
 
-
+#保存数据包
 func saveData():
 	var lastFrameTime
 	var playRoot = FuncRoot+"/_play"
@@ -212,7 +214,10 @@ func saveData():
 			if lastFrameTime < allAnimData[animName]["frames"][frameName]["tick"]:
 				lastFrameTime = allAnimData[animName]["frames"][frameName]["tick"]
 			_play_frames += 'execute if entity @s[scores={animFrames=%s}] run function cte:frames/%s/%s\n' % [allAnimData[animName]["frames"][frameName]["tick"],animName,frameName]
-			writeFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction",allAnimData[animName]["frames"][frameName]["command"])
+			var frameCommand = allAnimData[animName]["frames"][frameName]["command"]
+			if debugMode == true:
+				frameCommand += '\ntellraw @a [{"text":"[调试][CTE]正在播放动画 '+animName+' 中的帧 '+frameName+'","color":"yellow"}]'
+			writeFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction",frameCommand)
 		_play_frames += 'execute if entity @s[scores={animFrames=%s}] run kill @s' % lastFrameTime
 		writeFile(framesRoot+"/"+animName+"/_play_frames.mcfunction",_play_frames)
 	writeFile(FuncRoot+"/"+"tick.mcfunction",tickmc)

@@ -53,7 +53,7 @@ margin_left = 64.0
 margin_right = 128.0
 custom_styles/focus = SubResource( 6 )
 text = "文件"
-items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保存数据包", null, 0, false, true, 1, 0, null, "", false, "刷新", null, 0, false, true, 2, 0, null, "", false ]
+items = [ "打开数据包", null, 0, false, false, 0, 0, null, "", false, "保存数据包", null, 0, false, true, 1, 0, null, "", false, "刷新界面", null, 0, false, true, 2, 0, null, "", false, "调试模式", null, 1, false, false, 3, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="MenuButtonDebug" type="MenuButton" parent="topbar"]
