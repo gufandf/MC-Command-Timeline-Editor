@@ -60,6 +60,7 @@ func _ready():
 	MenuButtonDebug.get_popup().connect("id_pressed",self,"_debug_pressed")
 	$AcceptDialog.popup()
 	loadAnimList()
+	
 
 # 菜单栏
 # 菜单
