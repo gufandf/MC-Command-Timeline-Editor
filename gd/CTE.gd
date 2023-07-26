@@ -107,6 +107,7 @@ func readFile(path:String) -> String:
 		file.close()
 		return f
 	else:
+		print("文件不存在:"+path)
 		return ""
 # 写入
 func writeFile(filePath:String,context:String):
@@ -182,13 +183,7 @@ func loadData(path:String):
 				var frameData = readFile(framesRoot+"/"+animName+"/"+frameName+".mcfunction")
 				allAnimData[animName]["frames"][frameName] = {}
 				allAnimData[animName]["frames"][frameName]["tick"] = int(tick)
-				if "[调试][CTE]" in frameData:
-					var frameDataList = frameData.split("\n",false)
-					frameDataList.remove(-1)
-					var finlFrameData
-					for i in range(len(frameDataList)):
-						finlFrameData += frameDataList[i]
-				allAnimData[animName]["frames"][frameName]["command"] = finlFrameData
+				allAnimData[animName]["frames"][frameName]["command"] = frameData
 				print("\t包含帧:",frameName)
 	loadAnimList()
 
