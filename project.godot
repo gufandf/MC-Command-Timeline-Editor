@@ -6,22 +6,19 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
-config/name="Command Timeline Editor"
-run/main_scene="res://cte.tscn"
-boot_splash/show_image=false
-boot_splash/fullsize=false
-boot_splash/use_filter=false
-config/icon="res://cte.png"
-config/windows_native_icon="res://cte.ico"
+config/name="CTE"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.0")
+config/icon="res://icon.png"
 
 [display]
 
-window/dpi/allow_hidpi=true
-window/energy_saving/keep_screen_on=false
+window/size/viewport_width=996
+window/size/viewport_height=650
 
 [gui]
 

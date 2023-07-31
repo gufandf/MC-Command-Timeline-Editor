@@ -1,0 +1,764 @@
+[gd_scene load_steps=19 format=3 uid="uid://xr7kfs1gepgd"]
+
+[ext_resource type="FontFile" uid="uid://c7n7nsnhq01li" path="res://SourceHanSansCN-Medium.otf" id="1"]
+[ext_resource type="Script" path="res://main.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://ctj4xjnb7q4tt" path="res://2022-12-25_13.25.47.png" id="3_31j40"]
+[ext_resource type="StyleBox" uid="uid://b8qjged8t0h2d" path="res://panel.tres" id="4_lqq5f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plpxn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jktyx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40pyw"]
+
+[sub_resource type="Theme" id="Theme_8vuw5"]
+default_font = ExtResource("1")
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/styles/focus = SubResource("StyleBoxEmpty_plpxn")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_jktyx")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_40pyw")
+Panel/styles/panel = ExtResource("4_lqq5f")
+
+[sub_resource type="Animation" id="Animation_rfooy"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logsWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1136, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logsWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_mhw8c"]
+resource_name = "addAnimWindowPopdown"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("addAnim:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, 0, 149.5, 0, -149.5, -288, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("addAnim:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_5l7lk"]
+resource_name = "addAnimWindowPopup"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("addAnim:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(-288, 0, -136.5, 0, 136.5, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("addAnim:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_elwgq"]
+resource_name = "editWindowPopdown"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, -288, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("editWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_0bsda"]
+resource_name = "editWindowPopup"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(-288, 0, -137.5, 0, 137.5, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("editWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_bvbbv"]
+resource_name = "fileWindowPopdown"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fileWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, -0.5, 0.05, 0.5, -288, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fileWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_4uyp3"]
+resource_name = "fileWindowPopup"
+length = 0.2
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fileWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(-288, 0, 0, 0, 139, 0, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fileWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_e5hsp"]
+resource_name = "logsWindowPopdown"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logsWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, 0, 150, 0, -150, -288, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logsWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_4jdom"]
+resource_name = "logsWindowPopup"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logsWindow:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(-288, 0, -138, 0, 138, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logsWindow:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(3, 3),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0wj3"]
+_data = {
+"RESET": SubResource("Animation_rfooy"),
+"addAnimWindowPopdown": SubResource("Animation_mhw8c"),
+"addAnimWindowPopup": SubResource("Animation_5l7lk"),
+"editWindowPopdown": SubResource("Animation_elwgq"),
+"editWindowPopup": SubResource("Animation_0bsda"),
+"fileWindowPopdown": SubResource("Animation_bvbbv"),
+"fileWindowPopup": SubResource("Animation_4uyp3"),
+"logsWindowPopdown": SubResource("Animation_e5hsp"),
+"logsWindowPopup": SubResource("Animation_4jdom")
+}
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8vuw5")
+script = ExtResource("3")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_31j40")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_lqq5f")
+
+[node name="file" type="Button" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 40.0
+toggle_mode = true
+text = "文件"
+flat = true
+
+[node name="edit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 40.0
+text = "设置"
+flat = true
+
+[node name="logs" type="Button" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 40.0
+text = "日志"
+flat = true
+
+[node name="drag" type="Button" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = -16.0
+offset_right = 984.0
+offset_bottom = 40.0
+flat = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 200
+dragger_visibility = 2
+
+[node name="anims" type="Control" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="list" type="ItemList" parent="HSplitContainer/anims"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+auto_height = true
+
+[node name="addButton" type="Button" parent="HSplitContainer/anims"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+offset_right = -36.0
+text = "加"
+flat = true
+
+[node name="removeButton" type="Button" parent="HSplitContainer/anims"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -2.0
+text = "删"
+flat = true
+
+[node name="edit" type="Control" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="frameSlider" type="HSlider" parent="HSplitContainer/edit"]
+layout_mode = 0
+anchor_right = 1.0
+offset_right = -160.0
+offset_bottom = 32.0
+min_value = 1.0
+value = 50.0
+
+[node name="frameCount" type="SpinBox" parent="HSplitContainer/edit"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -151.0
+offset_right = -77.0
+offset_bottom = 34.0
+grow_horizontal = 0
+pivot_offset = Vector2(74, 17)
+tooltip_text = "当前帧"
+min_value = 1.0
+value = 1.0
+
+[node name="frameMaxCount" type="SpinBox" parent="HSplitContainer/edit"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_bottom = 34.0
+pivot_offset = Vector2(74, 17)
+tooltip_text = "时间线长度"
+min_value = 1.0
+value = 1.0
+allow_greater = true
+
+[node name="code" type="CodeEdit" parent="HSplitContainer/edit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+draw_spaces = true
+scroll_smooth = true
+caret_blink = true
+gutters_draw_line_numbers = true
+gutters_zero_pad_line_numbers = true
+code_completion_enabled = true
+
+[node name="info" type="Label" parent="HSplitContainer/edit"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -780.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "info"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="fileWindow" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -856.0
+offset_right = -600.0
+grow_vertical = 2
+
+[node name="close" type="Button" parent="fileWindow"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+tooltip_text = "点击关闭"
+text = "文件菜单"
+flat = true
+
+[node name="openFile" type="Button" parent="fileWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = -8.0
+offset_bottom = 88.0
+grow_horizontal = 2
+text = "打开文件"
+
+[node name="saveFile" type="Button" parent="fileWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = -8.0
+offset_bottom = 136.0
+grow_horizontal = 2
+text = "保存文件"
+
+[node name="quit" type="Button" parent="fileWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 160.0
+offset_right = -8.0
+offset_bottom = 200.0
+grow_horizontal = 2
+text = "关闭程序"
+
+[node name="close2" type="Button" parent="fileWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "关闭菜单"
+
+[node name="editWindow" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_right = -320.0
+grow_vertical = 2
+
+[node name="close" type="Button" parent="editWindow"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+tooltip_text = "点击关闭"
+text = "设置选项"
+flat = true
+
+[node name="debugMode" type="Button" parent="editWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = -8.0
+offset_bottom = 88.0
+grow_horizontal = 2
+toggle_mode = true
+text = "启用调试模式"
+
+[node name="autoSave" type="Button" parent="editWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = -8.0
+offset_bottom = 136.0
+grow_horizontal = 2
+toggle_mode = true
+text = "启用自动保存"
+
+[node name="close2" type="Button" parent="editWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "关闭菜单"
+
+[node name="logsWindow" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -1136.0
+offset_right = -880.0
+grow_vertical = 2
+
+[node name="close" type="Button" parent="logsWindow"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+tooltip_text = "点击关闭"
+text = "日志"
+flat = true
+
+[node name="log" type="RichTextLabel" parent="logsWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = -8.0
+offset_bottom = -348.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_following = true
+autowrap_mode = 1
+
+[node name="debugText" type="RichTextLabel" parent="logsWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 308.0
+offset_right = -8.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="close2" type="Button" parent="logsWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "关闭日志"
+
+[node name="addAnim" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_right = -32.0
+grow_vertical = 2
+
+[node name="close" type="Button" parent="addAnim"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+tooltip_text = "点击关闭"
+text = "添加时间线"
+flat = true
+
+[node name="close2" type="Button" parent="addAnim"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -40.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "取消"
+
+[node name="name" type="LineEdit" parent="addAnim"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 248.0
+offset_bottom = 88.0
+placeholder_text = "显示名称"
+alignment = 1
+
+[node name="nameSpace" type="LineEdit" parent="addAnim"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 248.0
+offset_bottom = 136.0
+placeholder_text = "命名空间"
+alignment = 1
+
+[node name="add" type="Button" parent="addAnim"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = -136.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "添加"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0wj3")
+}
+
+[node name="FileDialog" type="FileDialog" parent="."]
+initial_position = 2
+title = "Open a Directory"
+size = Vector2i(763, 489)
+popup_window = true
+ok_button_text = "选择当前文件夹"
+cancel_button_text = "取消"
+file_mode = 2
+access = 2
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "确认"
+size = Vector2i(280, 85)
+ok_button_text = "删除"
+dialog_text = "确定删除这条时间线吗?"
+cancel_button_text = "取消"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="pressed" from="file" to="." method="_on_file_pressed"]
+[connection signal="pressed" from="edit" to="." method="_on_edit_pressed"]
+[connection signal="pressed" from="logs" to="." method="_on_logs_pressed"]
+[connection signal="item_selected" from="HSplitContainer/anims/list" to="." method="_on_animList_item_selected"]
+[connection signal="pressed" from="HSplitContainer/anims/addButton" to="." method="_on_add_anim_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/anims/removeButton" to="." method="_on_remove_anim_button_pressed"]
+[connection signal="value_changed" from="HSplitContainer/edit/frameSlider" to="." method="_on_resentSlider_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/edit/frameCount" to="." method="_on_frameCount_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/edit/frameMaxCount" to="." method="_on_frameMaxCount_value_changed"]
+[connection signal="text_changed" from="HSplitContainer/edit/code" to="." method="_on_code_text_changed"]
+[connection signal="pressed" from="fileWindow/close" to="." method="_on_fileClose_pressed"]
+[connection signal="pressed" from="fileWindow/openFile" to="." method="_on_open_file_pressed"]
+[connection signal="pressed" from="fileWindow/saveFile" to="." method="_on_save_file_pressed"]
+[connection signal="pressed" from="fileWindow/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="fileWindow/close2" to="." method="_on_fileClose_pressed"]
+[connection signal="pressed" from="editWindow/close" to="." method="_on_editClose_pressed"]
+[connection signal="toggled" from="editWindow/debugMode" to="." method="_on_debug_mode_toggled"]
+[connection signal="toggled" from="editWindow/autoSave" to="." method="_on_auto_save_toggled"]
+[connection signal="pressed" from="editWindow/close2" to="." method="_on_editClose_pressed"]
+[connection signal="pressed" from="logsWindow/close" to="." method="_on_logsClose_pressed"]
+[connection signal="pressed" from="logsWindow/close2" to="." method="_on_logsClose_pressed"]
+[connection signal="pressed" from="addAnim/close" to="." method="_on_cancel_add_anim_button_pressed"]
+[connection signal="pressed" from="addAnim/close2" to="." method="_on_cancel_add_anim_button_pressed"]
+[connection signal="pressed" from="addAnim/add" to="." method="_on_accept_add_anim_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_remove_anim_button_confirm"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
